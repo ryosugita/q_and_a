@@ -1,0 +1,9 @@
+<%= form_with(model: @answer, local: true) do |f| %>
+<%= hidden_field_tag :question_id, @question.id %>
+        <div class="form-group">
+<%= f.text_area :content, class: 'form-control' %>
+        </div>
+        
+<%= f.submit '質問に回答する', class: 'btn btn-primary btn-block' %>
+
+<% end %>

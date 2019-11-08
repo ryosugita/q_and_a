@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_user_logged_in, only: [:show, :edit]
-  
+
   def show
     @user = User.find(params[:id])
   end
@@ -32,14 +32,26 @@ class UsersController < ApplicationController
       flash[:success] = "プロフィールを更新しました"
       redirect_to @user
     else
-      flash.now[:denger] = "プロフィールは更新されませんでした"
+      flash.now[:danger] = "プロフィールは更新されませんでした"
       render :edit
     end  
   end
+  
+  def qlists
+    @user = User.find(params[:id])
+    @questions = @user.questions.order(id: :desc)
+  end
+  
+  def alists
+    @user = User.find(params[:id])
+    @answers = @user.answers.order(id: :desc)
+  end  
   
   private
   
   def user_params
     params.require(:user).permit(:name, :email, :age, :password, :password_confirmation)
-  end  
+  end 
+  
+  
 end
